@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.ui_chat_application.home;" spacing="10" alignment="TOP_CENTER" padding="10">
+    <HBox spacing="10" alignment="CENTER">
+        <TextField fx:id="searchField" promptText="Search Contacts"/>
+        <Button text="Profile" onAction="#handleProfile"/>
+        <Button text="Settings" onAction="#handleSettings"/>
+    </HBox>
+    <ListView fx:id="contactList" VBox.vgrow="ALWAYS"/>
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="New Chat" onAction="#handleNewChat"/>
+        <Button text="Logout" onAction="#handleLogout"/>
+    </HBox>
+</VBox>
