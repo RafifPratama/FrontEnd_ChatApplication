@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.TextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -9,7 +8,9 @@
 <?import javafx.scene.text.Font?>
 
 
-<BorderPane id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #222222;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Hyperlink?>
+<BorderPane id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #222222;" xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.ui_chat_application.RegisterController">
    <center>
       <VBox alignment="CENTER" prefHeight="400.0" prefWidth="400.0" style="-fx-padding: 8px; -fx-spacing: 16px;" BorderPane.alignment="CENTER">
          <children>
@@ -18,12 +19,12 @@
                   <Font name="Arial Bold" size="24.0" />
                </font>
             </Label>
-            <TextField id="tfName" maxWidth="300.0" prefWidth="300.0" promptText="Name">
+            <TextField fx:id="tfName" maxWidth="300.0" prefWidth="300.0" promptText="Name">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
             </TextField>
-            <TextField id="tfUsername" maxWidth="300.0" prefWidth="300.0" promptText="Username">
+            <TextField fx:id="tfUsername" maxWidth="300.0" prefWidth="300.0" promptText="Username">
                <VBox.margin>
                   <Insets left="36.0" right="36.0" />
                </VBox.margin>
@@ -31,7 +32,7 @@
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
             </TextField>
-            <TextField id="tfPassword" maxWidth="300.0" prefWidth="300.0" promptText="Password">
+            <TextField fx:id="tfPassword" maxWidth="300.0" prefWidth="300.0" promptText="Password">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
@@ -39,12 +40,12 @@
                   <Insets left="36.0" right="36.0" />
                </VBox.margin>
             </TextField>
-            <Button alignment="CENTER" maxHeight="-Infinity" maxWidth="300.0" mnemonicParsing="false" prefWidth="300.0" style="-fx-background-color: #00B2FF;" text="REGISTER" textAlignment="CENTER" textFill="WHITE" />
-            <Label text="Login" textFill="#00a8ff" underline="true">
+            <Button fx:id="btnSubmitRegister" alignment="CENTER" maxHeight="-Infinity" maxWidth="300.0" mnemonicParsing="false" prefWidth="300.0" style="-fx-background-color: #00B2FF;" text="REGISTER" textAlignment="CENTER" textFill="WHITE" onAction="#registerButtonOnClick" />
+            <Hyperlink fx:id="toLoginPage" text="Login" textFill="#00a8ff" underline="true" onAction="#loginButtonOnClick">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
-            </Label>
+            </Hyperlink>
          </children>
          <opaqueInsets>
             <Insets />
