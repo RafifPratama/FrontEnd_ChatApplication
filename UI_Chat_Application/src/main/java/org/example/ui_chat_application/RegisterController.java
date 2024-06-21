@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -19,30 +20,30 @@ public class RegisterController {
     private TextField tfPassword;
     @FXML
     private Button btnSubmitRegister;
+    @FXML
+    private Label registerMassage;
 
     public void registerButtonOnClick(ActionEvent event) {
+        IClient client = new Client();
         if (tfName.getText().isBlank()==false && tfUsername.getText().isBlank() == false && tfPassword.getText().isBlank() == false){
             String name = tfName.getText();
             String username = tfUsername.getText();
             String password = tfPassword.getText();
-            IClient client = new Client();
 
             boolean isRegistered = client.register(username,password,name) ? true : false;
-
-            if(isRegistered){
+            if (!isRegistered) {
                 try {
                     MainApplication.setRoot("login.fxml");
                 }catch (IOException e) {
                     e.printStackTrace();
                     e.getCause();
                 }
+            }else {
+                registerMassage.setText("register gagal");
             }
-            else{
-                //fif tolong handle bagian front endnya ya
-                //ini kalo misal isRegistered nya false gimana"
-            }
+
         }else {
-            System.out.println("error");
+            registerMassage.setText("invalid register");
         }
     }
 

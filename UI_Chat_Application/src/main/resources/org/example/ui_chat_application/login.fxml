@@ -46,7 +46,7 @@
                         <Insets left="36.0" right="36.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label fx:id="loginMassage" alignment="CENTER" text="Invalid login" textAlignment="CENTER" textFill="RED">
+                  <Label fx:id="loginMassage" alignment="CENTER" text="" textAlignment="CENTER" textFill="RED">
                      <font>
                         <Font name="Arial Bold" size="14.0" />
                      </font>
