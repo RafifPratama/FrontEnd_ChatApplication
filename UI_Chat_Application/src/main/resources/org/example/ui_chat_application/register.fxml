@@ -40,6 +40,11 @@
                   <Insets left="36.0" right="36.0" />
                </VBox.margin>
             </TextField>
+            <Label fx:id="registerMassage" alignment="CENTER" text="" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+            </Label>
             <Button fx:id="btnSubmitRegister" alignment="CENTER" maxHeight="-Infinity" maxWidth="300.0" mnemonicParsing="false" prefWidth="300.0" style="-fx-background-color: #00B2FF;" text="REGISTER" textAlignment="CENTER" textFill="WHITE" onAction="#registerButtonOnClick" />
             <Hyperlink fx:id="toLoginPage" text="Login" textFill="#00a8ff" underline="true" onAction="#loginButtonOnClick">
                <font>
