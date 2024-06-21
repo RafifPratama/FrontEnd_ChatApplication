@@ -23,15 +23,16 @@ public class LoginController {
     private Label loginMassage;
 
     public void loginButtonOnClick(ActionEvent event){
-        if (tfUsername.getText().isBlank() == false && tfPassword.getText().isBlank() == false){
-            loginMassage.setText("");
-            String username = tfUsername.getText();
-            String password = tfPassword.getText();
-            IClient client = new Client();
-            client.login(username, password);
-            // System.out.println("username: "+username);
-            // System.out.println("passwrod: "+ password);
-        }else {
+        loginMassage.setText("");
+        String username = tfUsername.getText();
+        String password = tfPassword.getText();
+        IClient client = new Client();
+        boolean isAuth = client.login(username, password) ? true : false;
+
+        if(!isAuth){
+            //masuk ke homepage
+        }
+        else{
             loginMassage.setText("Invalid login, please try again");
         }
     }

@@ -30,7 +30,7 @@ public class Client implements IClient {
         this.user = new User();
         this.gson = new Gson();
         this.connectToServer();
-        this.listenOnMessage();
+        // this.listenOnMessage();
     }
 
     public void connectToServer() {
@@ -47,25 +47,25 @@ public class Client implements IClient {
         }
     }
 
-    public void listenOnMessage(){
-        new Thread(() -> {
-            String response = "";
+    // public void listenOnMessage(){
+    //     new Thread(() -> {
+    //         String response = "";
 
-            try{
-                response = this.readInputFromServer.readLine();
+    //         try{
+    //             response = this.readInputFromServer.readLine();
 
-                @SuppressWarnings("unchecked")
-                Response<String> res = gson.fromJson(response, Response.class);
+    //             @SuppressWarnings("unchecked")
+    //             Response<String> res = gson.fromJson(response, Response.class);
 
-                System.out.println("Message : " + res.getData());
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-        }).start();
-    }
+    //             System.out.println("Message : " + res.getData());
+    //         } catch (Exception e){
+    //             e.printStackTrace();
+    //         }
+    //     }).start();
+    // }
 
     @Override
-    public void register(String username, String password, String name) {
+    public boolean register(String username, String password, String name) {
         this.user.setUsername(username);
         this.user.setPassword(password);
         this.user.setName(name);
@@ -90,11 +90,15 @@ public class Client implements IClient {
         this.user.setPassword("");
         this.user.setName("");
 
-        System.out.println(res.getData());
+        // System.out.println(res.getData());
+        if(res.getData().equals("400")){
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public void login(String username, String password) {
+    public boolean login(String username, String password) {
         this.user.setUsername(username);
         this.user.setPassword(password);
 
@@ -114,11 +118,12 @@ public class Client implements IClient {
         @SuppressWarnings("unchecked")
         Response<String> res = gson.fromJson(response, Response.class);
 
-        System.out.println(res.getData());
-
         if (res.getData().equals("200")) {
+            // System.out.println("Masuk sini nih");
             this.user.setIsLoggedIn(true);
+            return true;
         }
+        return false;
     }
 
     @Override

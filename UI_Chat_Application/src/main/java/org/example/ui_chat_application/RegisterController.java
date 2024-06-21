@@ -7,6 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+
+import org.example.client.Client;
+import org.example.client.IClient;
 public class RegisterController {
     @FXML
     private TextField tfName;
@@ -22,9 +25,13 @@ public class RegisterController {
             String name = tfName.getText();
             String username = tfUsername.getText();
             String password = tfPassword.getText();
-            System.out.println("name: "+name);
-            System.out.println("username: "+username);
-            System.out.println("passwrod: "+ password);
+            IClient client = new Client();
+
+            boolean isRegistered = client.register(username,password,name) ? true : false;
+
+            //fif tolong handle bagian front endnya ya
+            //kalo misal isRegistered nya false gimana" dan sebaliknya
+
             try {
                 MainApplication.setRoot("login.fxml");
             }catch (IOException e) {
