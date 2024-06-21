@@ -1,4 +1,4 @@
-package org.example.ui_chat_application.home;
+package org.example.ui_chat_application;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

@@ -33,8 +33,6 @@ public class LoginController {
             //masuk ke homepage
         }
         else{
-            loginMassage.setText("Invalid login, please try again");
-        }
     }
 
     @FXML
