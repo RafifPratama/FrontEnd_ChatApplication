@@ -6,6 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.example.ui_chat_application.MainApplication;
+import org.example.client.*;
+
+import com.google.gson.Gson;
 
 import java.io.IOException;
 
@@ -24,8 +27,10 @@ public class LoginController {
             loginMassage.setText("");
             String username = tfUsername.getText();
             String password = tfPassword.getText();
-            System.out.println("username: "+username);
-            System.out.println("passwrod: "+ password);
+            IClient client = new Client();
+            client.login(username, password);
+            // System.out.println("username: "+username);
+            // System.out.println("passwrod: "+ password);
         }else {
             loginMassage.setText("Invalid login, please try again");
         }
