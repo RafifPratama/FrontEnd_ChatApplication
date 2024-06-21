@@ -26,6 +26,12 @@ public class LoginController {
             String password = tfPassword.getText();
             System.out.println("username: "+username);
             System.out.println("passwrod: "+ password);
+            try {
+                MainApplication.setRoot("home.fxml");
+            }catch (IOException e) {
+                e.printStackTrace();
+                e.getCause();
+            }
         }else {
             loginMassage.setText("Invalid login, please try again");
         }
