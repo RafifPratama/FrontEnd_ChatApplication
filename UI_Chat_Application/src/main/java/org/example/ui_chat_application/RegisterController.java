@@ -29,14 +29,17 @@ public class RegisterController {
 
             boolean isRegistered = client.register(username,password,name) ? true : false;
 
-            //fif tolong handle bagian front endnya ya
-            //kalo misal isRegistered nya false gimana" dan sebaliknya
-
-            try {
-                MainApplication.setRoot("login.fxml");
-            }catch (IOException e) {
-                e.printStackTrace();
-                e.getCause();
+            if(isRegistered){
+                try {
+                    MainApplication.setRoot("login.fxml");
+                }catch (IOException e) {
+                    e.printStackTrace();
+                    e.getCause();
+                }
+            }
+            else{
+                //fif tolong handle bagian front endnya ya
+                //ini kalo misal isRegistered nya false gimana"
             }
         }else {
             System.out.println("error");
