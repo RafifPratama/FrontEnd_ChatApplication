@@ -1,5 +1,9 @@
 package org.example.ui_chat_application.home;
 
+import java.io.IOException;
+
+import org.example.ui_chat_application.MainApplication;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -36,12 +40,22 @@ public class HomeController {
 
     private void handleAddContact() {
         // Placeholder for adding a contact (you can replace this with actual logic)
-        contactList.getItems().add("New Contact");
+        try {
+            MainApplication.setRoot("new_room_chat.fxml");
+        }catch (IOException e) {
+            e.printStackTrace();
+            e.getCause();
+        }
     }
 
     private void handleLogout() {
         // Placeholder for logout logic (you can replace this with actual logic)
-        System.out.println("Logged out");
+        try {
+            MainApplication.setRoot("login.fxml");
+        }catch (IOException e) {
+            e.printStackTrace();
+            e.getCause();
+        }
     }
 
     private void handleChat() {
