@@ -1,4 +1,4 @@
-package org.example.ui_chat_application;
+package org.example.ui_chat_application.home;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -23,6 +23,7 @@ public class HomeController {
     @FXML
     public void initialize() {
         // Initialize the contact list with some dummy data
+        contactList = new ListView<>();
         contactList.getItems().addAll("Alice", "Bob", "Charlie", "David");
 
         // Add event listener for the contact list
