@@ -2,10 +2,17 @@ package org.example.ui_chat_application;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.scene.Node;
+
 import org.example.ui_chat_application.MainApplication;
+import org.example.ui_chat_application.home.HomeController;
 import org.example.client.*;
 
 import com.google.gson.Gson;
@@ -13,6 +20,10 @@ import com.google.gson.Gson;
 import java.io.IOException;
 
 public class LoginController {
+    private Parent root;
+    private Stage stage;
+	private Scene scene;
+
     @FXML
     private TextField tfUsername;
     @FXML
@@ -40,7 +51,20 @@ public class LoginController {
 
         if(isAuth){
             try {
-                MainApplication.setRoot("home.fxml");
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("home.fxml"));
+                root = loader.load();
+                HomeController homeController = loader.getController();
+                homeController.setClient(client);
+
+                stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+                // Stage homeStage = new Stage();
+                // homeStage.setScene(new Scene(root, 600, 400));
+                // homeStage.show();
+                
+                // MainApplication.setRoot("home.fxml");
             }catch (IOException e) {
                 e.printStackTrace();
                 e.getCause();
@@ -53,11 +77,12 @@ public class LoginController {
     @FXML
     public void registerButtonOnClick(ActionEvent event) {
         try {
-            MainApplication.setRoot("register.fxml");
-//            Parent root = FXMLLoader.load(getClass().getResource("register.fxml"));
-//            Stage registerStage = new Stage();
-//            registerStage.setScene(new Scene(root, 600, 400));
-//            registerStage.show();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("register.fxml"));
+            root = loader.load();
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         }catch (IOException e) {
             e.printStackTrace();
         }
