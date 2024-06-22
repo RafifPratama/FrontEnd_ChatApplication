@@ -3,63 +3,54 @@ package org.example.ui_chat_application.home;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 public class HomeController {
-    @FXML
-    private TextField searchField;
+
     @FXML
     private ListView<String> contactList;
+
     @FXML
-    private Button profileButton;
+    private ListView<String> chatList;
+
     @FXML
-    private Button settingsButton;
+    private Button btnAdd;
+
     @FXML
-    private Button newChatButton;
+    private Button btnLogout;
+
     @FXML
-    private Button logoutButton;
+    private Button btnChat;
 
     @FXML
     public void initialize() {
-        // Initialize the contact list with some dummy data
-        contactList = new ListView<>();
-        contactList.getItems().addAll("Alice", "Bob", "Charlie", "David");
+        // Initialize the contact list and chat list with some dummy data
+        contactList.getItems().addAll("Contact 1", "Contact 2", "Contact 3");
+        chatList.getItems().addAll("Member 1", "Member 2", "Member 3");
 
-        // Add event listener for the contact list
-        contactList.setOnMouseClicked(event -> handleContactClick(event));
+        // Add event handlers for buttons
+        btnAdd.setOnAction(event -> handleAddContact());
+        btnLogout.setOnAction(event -> handleLogout());
+        btnChat.setOnAction(event -> handleChat());
     }
 
-    @FXML
-    private void handleProfile() {
-        System.out.println("Profile button clicked!");
-        // Logic to handle profile viewing
+    private void handleAddContact() {
+        // Placeholder for adding a contact (you can replace this with actual logic)
+        contactList.getItems().add("New Contact");
     }
 
-    @FXML
-    private void handleSettings() {
-        System.out.println("Settings button clicked!");
-        // Logic to handle settings
-    }
-
-    @FXML
-    private void handleNewChat() {
-        System.out.println("New Chat button clicked!");
-        // Logic to start a new chat
-    }
-
-    @FXML
     private void handleLogout() {
-        System.out.println("Logout button clicked!");
-        // Logic to handle logout
+        // Placeholder for logout logic (you can replace this with actual logic)
+        System.out.println("Logged out");
     }
 
-    private void handleContactClick(MouseEvent event) {
+    private void handleChat() {
+        // Placeholder for starting a chat (you can replace this with actual logic)
         String selectedContact = contactList.getSelectionModel().getSelectedItem();
         if (selectedContact != null) {
-            System.out.println("Selected contact: " + selectedContact);
-            // Logic to open chat with the selected contact
+            chatList.getItems().add("Chat with " + selectedContact);
+        } else {
+            System.out.println("No contact selected");
         }
     }
 }
-

@@ -31,7 +31,7 @@ public class RegisterController {
             String password = tfPassword.getText();
 
             boolean isRegistered = client.register(username,password,name) ? true : false;
-            if (!isRegistered) {
+            if (isRegistered) {
                 try {
                     MainApplication.setRoot("login.fxml");
                 }catch (IOException e) {
