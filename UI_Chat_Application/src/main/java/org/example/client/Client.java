@@ -7,12 +7,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.lang.reflect.Type;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.example.request.Request;
 import org.example.response.Response;
+import org.example.model.Chat;
 import org.example.model.Room;
 import org.example.model.User;
 import org.example.model.UserRoom;
@@ -120,16 +124,17 @@ public class Client implements IClient {
 
         if (res.getData().equals("200")) {
             // System.out.println("Masuk sini nih");
-            this.user.setIsLoggedIn(true);
+            user.setIsLoggedIn(true);
             return true;
         }
         return false;
     }
 
     @Override
-    public void sendMessage() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sendMessage'");
+    public void sendMessage(String message, String roomName) {
+        Request<String> req = new Request<>("sendMessage", gson.toJson(new Chat(message, roomName, this.user.getName())));
+
+        writer.println(gson.toJson(req));
     }
 
     @Override
@@ -216,5 +221,58 @@ public class Client implements IClient {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public ArrayList<Room> listAllRooms() {
+        // if (!user.getIsLoggedIn()){
+        //     System.out.println(user.getIsLoggedIn());
+        //     System.out.println("ya gabisa atuh");
+        //     return null;
+        // }
+
+        Request<String> req = new Request<>("listAllRooms");
+
+        writer.println(gson.toJson(req));
+
+        String response = "";
+
+        try {
+            response = readInputFromServer.readLine();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        @SuppressWarnings("unchecked")
+        Response<ArrayList<Room>> res = gson.fromJson(response, Response.class);
+
+        TypeToken<ArrayList<Room>> typeToken = new TypeToken<ArrayList<Room>>(){};
+
+        ArrayList<Room> alRoom = gson.fromJson(res.getData().toString(), typeToken);
+
+        return alRoom;
+    }
+
+    @Override
+    public ArrayList<User> listAllMembersInTheRoom(Integer roomId) {
+        Request<Integer> req = new Request<>("listAllMembersInTheRoom", roomId);
+
+        writer.println(gson.toJson(req));
+
+        String response = "";
+
+        try {
+            response = readInputFromServer.readLine();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        @SuppressWarnings("unchecked")
+        Response<ArrayList<User>> res = gson.fromJson(response, Response.class);
+
+        TypeToken<ArrayList<User>> typeToken = new TypeToken<ArrayList<User>>(){};
+
+        ArrayList<User> alMembersInTheRoom = gson.fromJson(res.getData().toString(), typeToken);
+        return alMembersInTheRoom;
     }
 }
