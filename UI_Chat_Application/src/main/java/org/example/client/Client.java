@@ -138,9 +138,9 @@ public class Client implements IClient {
     }
 
     @Override
-    public void createRoom(String roomName) {
+    public boolean createRoom(String roomName) {
         if (!this.user.getIsLoggedIn())
-            return;
+            return false;
 
         Room room = new Room(roomName, user.getName());
 
@@ -159,7 +159,11 @@ public class Client implements IClient {
         @SuppressWarnings("unchecked")
         Response<String> res = gson.fromJson(response, Response.class);
 
-        System.out.println(res.getData());
+        if(res.getData().equals("200")){
+            return true;
+        }
+        return false;
+        // System.out.println(res.getData());
     }
 
     @Override

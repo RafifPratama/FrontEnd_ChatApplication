@@ -2,16 +2,25 @@ package org.example.ui_chat_application;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
 import org.example.client.Client;
 import org.example.client.IClient;
 public class RegisterController {
+    private Parent root;
+    private Stage stage;
+	private Scene scene;
+
     @FXML
     private TextField tfName;
     @FXML
@@ -33,7 +42,12 @@ public class RegisterController {
             boolean isRegistered = client.register(username,password,name) ? true : false;
             if (isRegistered) {
                 try {
-                    MainApplication.setRoot("login.fxml");
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+                    root = loader.load();
+                    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
                 }catch (IOException e) {
                     e.printStackTrace();
                     e.getCause();
@@ -50,11 +64,12 @@ public class RegisterController {
     @FXML
     public void loginButtonOnClick(ActionEvent event) {
         try {
-            MainApplication.setRoot("login.fxml");
-//            Parent root = FXMLLoader.load(getClass().getResource("register.fxml"));
-//            Stage registerStage = new Stage();
-//            registerStage.setScene(new Scene(root, 600, 400));
-//            registerStage.show();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            root = loader.load();
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         }catch (IOException e) {
             e.printStackTrace();
             e.getCause();
