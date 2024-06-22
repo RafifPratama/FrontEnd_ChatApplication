@@ -5,6 +5,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 
+import java.util.ArrayList;
+
+import org.example.client.*;
+import org.example.model.*;
+
 public class HomeController {
 
     @FXML
@@ -24,8 +29,13 @@ public class HomeController {
 
     @FXML
     public void initialize() {
-        // Initialize the contact list and chat list with some dummy data
-        contactList.getItems().addAll("Contact 1", "Contact 2", "Contact 3");
+        IClient client = new Client();
+        ArrayList<Room> alRoom = client.listAllRooms();
+        // Add all available rooms to contactList
+        for (int i = 0; i < alRoom.size(); i++) {
+            contactList.getItems().add(alRoom.get(i).getName());
+        }
+        // contactList.getItems().addAll("Contact 1", "Contact 2", "Contact 3");
         chatList.getItems().addAll("Member 1", "Member 2", "Member 3");
 
         // Add event handlers for buttons
