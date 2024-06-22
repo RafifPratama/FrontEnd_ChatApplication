@@ -2,64 +2,64 @@ package org.example.ui_chat_application.home;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.util.Callback;
 
-public class HomeController {
+public class MainController {
+
     @FXML
-    private TextField searchField;
+    private ListView<String> listViewLeft; // Assuming first ListView is the left one
+
     @FXML
-    private ListView<String> contactList;
+    private ListView<String> listViewRight; // Assuming second ListView is the right one
+
     @FXML
-    private Button profileButton;
+    private Button btnChat;
+
     @FXML
-    private Button settingsButton;
+    private Button btnLogout;
+
     @FXML
-    private Button newChatButton;
-    @FXML
-    private Button logoutButton;
+    private Button btnAdd;
 
     @FXML
     public void initialize() {
-        // Initialize the contact list with some dummy data
-        contactList = new ListView<>();
-        contactList.getItems().addAll("Alice", "Bob", "Charlie", "David");
+        // Add items to the right list view
+        listViewRight.getItems().addAll("Alice", "Bob", "Drake");
 
-        // Add event listener for the contact list
-        contactList.setOnMouseClicked(event -> handleContactClick(event));
-    }
+        // Set the cell factory to use the custom list cell for the right list view
+        listViewRight.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+            @Override
+            public ListCell<String> call(ListView<String> listView) {
+                return new ListCell<String>() {
+                    private Home home;
 
-    @FXML
-    private void handleProfile() {
-        System.out.println("Profile button clicked!");
-        // Logic to handle profile viewing
-    }
+                    {
+                        // Initialize the Home instance within the ListCell
+                        home = new Home("");
 
-    @FXML
-    private void handleSettings() {
-        System.out.println("Settings button clicked!");
-        // Logic to handle settings
-    }
+                        // Ensure the HBox is set as the graphic for the ListCell
+                        setGraphic(home.getHBox());
+                    }
 
-    @FXML
-    private void handleNewChat() {
-        System.out.println("New Chat button clicked!");
-        // Logic to start a new chat
-    }
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
 
-    @FXML
-    private void handleLogout() {
-        System.out.println("Logout button clicked!");
-        // Logic to handle logout
-    }
+                        if (empty || item == null) {
+                            setText(null);
+                            setGraphic(null);
+                        } else {
+                            // Update the Home instance with the new item text
+                            home = new Home(item);
+                            setGraphic(home.getHBox());
+                        }
+                    }
+                };
+            }
+        });
 
-    private void handleContactClick(MouseEvent event) {
-        String selectedContact = contactList.getSelectionModel().getSelectedItem();
-        if (selectedContact != null) {
-            System.out.println("Selected contact: " + selectedContact);
-            // Logic to open chat with the selected contact
-        }
+        // Initialize other components or handle events as necessary
     }
 }
-

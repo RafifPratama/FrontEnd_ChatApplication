@@ -12,7 +12,7 @@ public class MainApplication extends Application {
     private static Scene scene;
     @Override
     public void start(Stage stage) throws IOException{
-        scene = new Scene(loadFXML("login.fxml"), 600, 400);
+        scene = new Scene(loadFXML("home.fxml"), 600, 400);
         stage.setScene(scene);
         stage.show();
     }
