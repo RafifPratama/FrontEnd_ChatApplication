@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.ui_chat_application.home;" spacing="10" alignment="TOP_CENTER" padding="10">
-    <HBox spacing="10" alignment="CENTER">
-        <TextField fx:id="searchField" promptText="Search Contacts"/>
-        <Button text="Profile" onAction="#handleProfile"/>
-        <Button text="Settings" onAction="#handleSettings"/>
-    </HBox>
-    <ListView fx:id="contactList" VBox.vgrow="ALWAYS"/>
-    <HBox spacing="10" alignment="CENTER">
-        <Button text="New Chat" onAction="#handleNewChat"/>
-        <Button text="Logout" onAction="#handleLogout"/>
-    </HBox>
-</VBox>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #222222;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ui_chat_application.home.HomeController">
+   
+   <!-- Left Panel for Navigation and Search -->
+   <left>
+      <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="200.0" style="-fx-padding: 8px; -fx-spacing: 16px; -fx-background-color: #2C2C2C;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="profileButton" text="Profile" textFill="WHITE" style="-fx-background-color: #3C3C3C; -fx-font-size: 14px;" onAction="#handleProfile" />
+            <Button fx:id="settingsButton" text="Settings" textFill="WHITE" style="-fx-background-color: #3C3C3C; -fx-font-size: 14px;" onAction="#handleSettings" />
+            <Button fx:id="newChatButton" text="New Chat" textFill="WHITE" style="-fx-background-color: #3C3C3C; -fx-font-size: 14px;" onAction="#handleNewChat" />
+            <Button fx:id="logoutButton" text="Logout" textFill="WHITE" style="-fx-background-color: #3C3C3C; -fx-font-size: 14px;" onAction="#handleLogout" />
+         </children>
+      </VBox>
+   </left>
+
+   <!-- Center Panel for Chat List and Search -->
+   <center>
+      <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="600.0" style="-fx-padding: 8px; -fx-spacing: 16px;" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="searchField" promptText="Search for chats and messages" style="-fx-background-color: #3C3C3C; -fx-text-fill: WHITE;" />
+            <ListView fx:id="chatList" style="-fx-background-color: #2C2C2C; -fx-text-fill: WHITE;" VBox.vgrow="ALWAYS"/>
+         </children>
+      </VBox>
+   </center>
+
+</BorderPane>

@@ -10,7 +10,7 @@ public class HomeController {
     @FXML
     private TextField searchField;
     @FXML
-    private ListView<String> contactList;
+    private ListView<String> chatList;
     @FXML
     private Button profileButton;
     @FXML
@@ -22,11 +22,11 @@ public class HomeController {
 
     @FXML
     public void initialize() {
-        // Initialize the contact list with some dummy data
-        contactList.getItems().addAll("Alice", "Bob", "Charlie", "David");
+        // Initialize the chat list with some dummy data
+        chatList.getItems().addAll("Chat with Alice", "Chat with Bob", "Chat with Charlie", "Chat with David");
 
-        // Add event listener for the contact list
-        contactList.setOnMouseClicked(event -> handleContactClick(event));
+        // Add event listener for the chat list
+        chatList.setOnMouseClicked(this::handleChatClick);
     }
 
     @FXML
@@ -53,12 +53,11 @@ public class HomeController {
         // Logic to handle logout
     }
 
-    private void handleContactClick(MouseEvent event) {
-        String selectedContact = contactList.getSelectionModel().getSelectedItem();
-        if (selectedContact != null) {
-            System.out.println("Selected contact: " + selectedContact);
+    private void handleChatClick(MouseEvent event) {
+        String selectedChat = chatList.getSelectionModel().getSelectedItem();
+        if (selectedChat != null) {
+            System.out.println("Selected chat: " + selectedChat);
             // Logic to open chat with the selected contact
         }
     }
 }
-
