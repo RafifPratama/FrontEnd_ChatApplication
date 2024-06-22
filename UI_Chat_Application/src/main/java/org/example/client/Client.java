@@ -16,6 +16,7 @@ import com.google.gson.reflect.TypeToken;
 
 import org.example.request.Request;
 import org.example.response.Response;
+import org.example.model.Chat;
 import org.example.model.Room;
 import org.example.model.User;
 import org.example.model.UserRoom;
@@ -130,9 +131,10 @@ public class Client implements IClient {
     }
 
     @Override
-    public void sendMessage() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sendMessage'");
+    public void sendMessage(String message, String roomName) {
+        Request<String> req = new Request<>("sendMessage", gson.toJson(new Chat(message, roomName, this.user.getName())));
+
+        writer.println(gson.toJson(req));
     }
 
     @Override
@@ -249,5 +251,28 @@ public class Client implements IClient {
         ArrayList<Room> alRoom = gson.fromJson(res.getData().toString(), typeToken);
 
         return alRoom;
+    }
+
+    @Override
+    public ArrayList<User> listAllMembersInTheRoom(Integer roomId) {
+        Request<Integer> req = new Request<>("listAllMembersInTheRoom", roomId);
+
+        writer.println(gson.toJson(req));
+
+        String response = "";
+
+        try {
+            response = readInputFromServer.readLine();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        @SuppressWarnings("unchecked")
+        Response<ArrayList<User>> res = gson.fromJson(response, Response.class);
+
+        TypeToken<ArrayList<User>> typeToken = new TypeToken<ArrayList<User>>(){};
+
+        ArrayList<User> alMembersInTheRoom = gson.fromJson(res.getData().toString(), typeToken);
+        return alMembersInTheRoom;
     }
 }
