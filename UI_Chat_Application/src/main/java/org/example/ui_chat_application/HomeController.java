@@ -11,14 +11,6 @@ public class HomeController {
     private TextField searchField;
     @FXML
     private ListView<String> contactList;
-    @FXML
-    private Button profileButton;
-    @FXML
-    private Button settingsButton;
-    @FXML
-    private Button newChatButton;
-    @FXML
-    private Button logoutButton;
 
     @FXML
     public void initialize() {

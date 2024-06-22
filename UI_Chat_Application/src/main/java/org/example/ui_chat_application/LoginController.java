@@ -23,30 +23,35 @@ public class LoginController {
     private Label loginMassage;
 
     public void loginButtonOnClick(ActionEvent event){
-        boolean isAuth = false;
-        IClient client = new Client();
-        if (tfUsername.getText().isBlank() == false && tfPassword.getText().isBlank() == false) {
-            String username = tfUsername.getText();
-            String password = tfPassword.getText();
-            isAuth = client.login(username, password) ? true : false;
-        }else {
-            loginMassage.setText("Invalid login!");
-        }
-//        loginMassage.setText("");
-//        String username = tfUsername.getText();
-//        String password = tfPassword.getText();
+//        boolean isAuth = false;
 //        IClient client = new Client();
-//        boolean isAuth = client.login(username, password) ? true : false;
-
-        if(isAuth){
-            try {
-                MainApplication.setRoot("home.fxml");
-            }catch (IOException e) {
-                e.printStackTrace();
-                e.getCause();
-            }
-        }else{
-            loginMassage.setText("Login gagal");
+//        if (tfUsername.getText().isBlank() == false && tfPassword.getText().isBlank() == false) {
+//            String username = tfUsername.getText();
+//            String password = tfPassword.getText();
+//            isAuth = client.login(username, password) ? true : false;
+//        }else {
+//            loginMassage.setText("Invalid login!");
+//        }
+////        loginMassage.setText("");
+////        String username = tfUsername.getText();
+////        String password = tfPassword.getText();
+////        IClient client = new Client();
+////        boolean isAuth = client.login(username, password) ? true : false;
+//
+//        if(isAuth){
+//            try {
+//                MainApplication.setRoot("home.fxml");
+//            }catch (IOException e) {
+//                e.printStackTrace();
+//                e.getCause();
+//            }
+//        }else{
+//            loginMassage.setText("Login gagal");
+//        }
+        try {
+            MainApplication.setRoot("home.fxml");
+        }catch (IOException e){
+            e.printStackTrace();
         }
     }
 
