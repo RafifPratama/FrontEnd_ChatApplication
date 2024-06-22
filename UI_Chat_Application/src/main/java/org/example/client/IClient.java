@@ -9,7 +9,7 @@ public interface IClient {
     boolean register(String username, String password, String name);
     boolean login(String username, String password);
     void sendMessage(String message, String roomName);
-    void createRoom(String roomName);
+    boolean createRoom(String roomName);
     ArrayList<Room> listAllRooms();
     ArrayList<User> listAllMembersInTheRoom(Integer roomId);
     void addMember(String memberName, String roomName);

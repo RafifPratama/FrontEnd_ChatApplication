@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 import javafx.scene.Node;
 
 import org.example.ui_chat_application.MainApplication;
-import org.example.ui_chat_application.home.HomeController;
 import org.example.client.*;
 
 import com.google.gson.Gson;
@@ -55,6 +54,7 @@ public class LoginController {
                 root = loader.load();
                 HomeController homeController = loader.getController();
                 homeController.setClient(client);
+                homeController.init();
 
                 stage = (Stage)((Node)event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
