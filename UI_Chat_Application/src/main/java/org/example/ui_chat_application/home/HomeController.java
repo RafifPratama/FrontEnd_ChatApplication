@@ -60,11 +60,22 @@ public class HomeController {
 
     private void handleChat() {
         // Placeholder for starting a chat (you can replace this with actual logic)
-        String selectedContact = contactList.getSelectionModel().getSelectedItem();
-        if (selectedContact != null) {
-            chatList.getItems().add("Chat with " + selectedContact);
-        } else {
-            System.out.println("No contact selected");
+        if (btnChat.getText().equals("Join")) {
+            joinButtonOnClick();
+        }else if (btnChat.getText().equals("Chat")) {
+            chatButtonOnClick();
+        }
+    }
+
+    private void joinButtonOnClick() {
+
+    }
+
+    private void chatButtonOnClick() {
+        try {
+            MainApplication.setRoot("chat_room.fxml");
+        } catch (IOException e){
+            e.printStackTrace();
         }
     }
 }
