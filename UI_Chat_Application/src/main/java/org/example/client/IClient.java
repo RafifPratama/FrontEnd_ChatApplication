@@ -20,6 +20,7 @@ public interface IClient {
     boolean joinRoom(String roomName);
     boolean isMemberInside(Integer roomId);
     boolean isOwnerOfTheRoom(Integer userId, Integer roomId);
+    boolean kickMember(Integer userId, Integer roomId);
     void logout();
     void exit();
 }

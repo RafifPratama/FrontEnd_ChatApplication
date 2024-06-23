@@ -34,7 +34,24 @@ public class KickConfirmController {
 
     @FXML
     private void handleKick(ActionEvent event) {
-        // this.client.kickMember(toBeKickMember.getId(), this.room.getId());
+        boolean hasKicked = this.client.kickMember(toBeKickMember.getId(), this.room.getId());
+        System.out.println(hasKicked);
+        if(hasKicked){
+            try{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("home.fxml"));
+                root = loader.load();
+                HomeController homeController = loader.getController();
+                homeController.setClient(client);
+                homeController.init();
+        
+                stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML

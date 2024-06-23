@@ -383,4 +383,24 @@ public class Client implements IClient {
         
         return res.getData();
     }
+
+    @Override
+    public boolean kickMember(Integer userId, Integer roomId) {
+        UserRoom userRoom = new UserRoom(userId, roomId);
+        Request<String> req = new Request<>("kickMember", gson.toJson(userRoom)); 
+        writer.println(gson.toJson(req));
+
+        String response = "";
+
+        try{
+            response = readInputFromServer.readLine();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        @SuppressWarnings("unchecked")
+        Response<Boolean> res = gson.fromJson(response, Response.class);
+        System.out.println("datanya adalah : " + res.getData());
+        return res.getData();
+    }
 }
