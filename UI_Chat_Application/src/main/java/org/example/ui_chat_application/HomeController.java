@@ -19,6 +19,7 @@ import org.example.model.*;
 
 public class HomeController {
     IClient client;
+    Room selectedRoom;
     private Parent root;
     private Stage stage;
 	private Scene scene;
@@ -39,7 +40,6 @@ public class HomeController {
     private Button btnChat;
 
     public void init() {
-        IClient client = new Client();
         ArrayList<Room> alRoom = client.listAllRooms();
     
         for (int i = 0; i < alRoom.size(); i++) {
@@ -49,8 +49,8 @@ public class HomeController {
 
         // Add event handlers for buttons
         btnAdd.setOnMouseClicked(event -> handleAddContact(event));
-        btnLogout.setOnAction(event -> handleLogout());
-        btnChat.setOnAction(event -> handleChat());
+        btnLogout.setOnMouseClicked(event -> handleLogout(event));
+        btnChat.setOnMouseClicked(event -> handleChat(event));
     }
 
     public void setClient(IClient client){
@@ -81,42 +81,78 @@ public class HomeController {
         if (selectedChat != null) {
             chatList.getItems().clear();
             int selectedIdx = contactList.getSelectionModel().getSelectedIndex();
+            this.selectedRoom = alRoom.get(selectedIdx);
             ArrayList<User> alUserPerRoom = client.listAllMembersInTheRoom(alRoom.get(selectedIdx).getId());
+            // btnChat.setOnMouseClicked(event -> handleChat(event));
             for (int i = 0; i < alUserPerRoom.size(); i++) {
-                // System.out.println(alUserPerRoom.get(i).getName());
                 chatList.getItems().add(alUserPerRoom.get(i).getName());
+                Integer roomId = alRoom.get(selectedIdx).getId();
+                swapChatJoin(this.client.isMemberInside(roomId));
             }
-            // Logic to open chat with the selected contact
         }
     }
 
-    private void handleLogout() {
+    private void swapChatJoin(boolean flag){
+        if(flag){
+            btnChat.setText("Chat");
+            return;
+        }
+        btnChat.setText("Join");
+    }
+
+    private void handleLogout(MouseEvent event) {
         // Placeholder for logout logic (you can replace this with actual logic)
         try {
-            MainApplication.setRoot("login.fxml");
+            // MainApplication.setRoot("login.fxml");
+            this.client.logout();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            root = loader.load();
+            // NewRoomChatController newRoomChatController = loader.getController();
+            // newRoomChatController.setClient(client);
+
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         }catch (IOException e) {
             e.printStackTrace();
             e.getCause();
         }
     }
 
-    private void handleChat() {
-        // Placeholder for starting a chat (you can replace this with actual logic)
+    private void handleChat(MouseEvent event) {
         if (btnChat.getText().equals("Join")) {
-            joinButtonOnClick();
+            joinButtonOnClick(event);
         }else if (btnChat.getText().equals("Chat")) {
-            chatButtonOnClick();
+            chatButtonOnClick(event);
         }
     }
 
-    private void joinButtonOnClick() {
-
+    private void joinButtonOnClick(MouseEvent event) {
+        this.client.joinRoom(this.selectedRoom.getName());
+        try{
+            ArrayList<User> alUserPerRoom = client.listAllMembersInTheRoom(selectedRoom.getId());
+            chatList.getItems().clear();
+            for (int i = 0; i < alUserPerRoom.size(); i++) {
+                chatList.getItems().add(alUserPerRoom.get(i).getName());
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
-    private void chatButtonOnClick() {
-        try {
-            MainApplication.setRoot("chat_room.fxml");
-        } catch (IOException e){
+    private void chatButtonOnClick(MouseEvent event) {
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("chat_room.fxml"));
+            root = loader.load();
+            ChatRoomController chatRoomController = loader.getController();
+            chatRoomController.setClient(client);
+    
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e){
             e.printStackTrace();
         }
     }

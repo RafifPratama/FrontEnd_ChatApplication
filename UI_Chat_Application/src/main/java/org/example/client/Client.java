@@ -116,15 +116,18 @@ public class Client implements IClient {
             response = readInputFromServer.readLine();
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("sini lah bang masuknya");
         }
 
         @SuppressWarnings("unchecked")
         Response<String> res = gson.fromJson(response, Response.class);
+        Integer userId = gson.fromJson(res.getData().toString(), Integer.class);
 
-        if (res.getData().equals("200")) {
+        System.out.println("user id adalah " + userId);
+
+        if (!res.getData().equals("401")) {
             // System.out.println("Masuk sini nih");
-            user.setIsLoggedIn(true);
+            this.user.setId(userId);
+            this.user.setIsLoggedIn(true);
             return true;
         }
         return false;
@@ -278,5 +281,50 @@ public class Client implements IClient {
 
         ArrayList<User> alMembersInTheRoom = gson.fromJson(res.getData().toString(), typeToken);
         return alMembersInTheRoom;
+    }
+
+    @Override
+    public boolean joinRoom(String roomName) {
+        UserRoom userRoom = new UserRoom(this.user.getId(), roomName);
+        Request<String> req = new Request<>("joinRoom", gson.toJson(userRoom));
+
+        writer.println(gson.toJson(req));
+        
+        String response = "";
+
+        try {
+            response = readInputFromServer.readLine();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        @SuppressWarnings("unchecked")
+        Response<String> res = gson.fromJson(response, Response.class);
+
+        if(!res.getData().equals("200")){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean isMemberInside(Integer roomId) {
+        UserRoom userRoom = new UserRoom(this.user.getId(), roomId);
+        Request<String> req = new Request<>("isMemberInside", gson.toJson(userRoom));
+
+        writer.println(gson.toJson(req));
+
+        String response = "";
+        
+        try{
+            response = readInputFromServer.readLine();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        @SuppressWarnings("unchecked")
+        Response<Boolean> res = gson.fromJson(response, Response.class);
+
+        return res.getData();
     }
 }

@@ -42,11 +42,6 @@ public class LoginController {
         }else {
             loginMassage.setText("Invalid login!");
         }
-//        loginMassage.setText("");
-//        String username = tfUsername.getText();
-//        String password = tfPassword.getText();
-//        IClient client = new Client();
-//        boolean isAuth = client.login(username, password) ? true : false;
 
         if(isAuth){
             try {
@@ -60,11 +55,6 @@ public class LoginController {
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
-                // Stage homeStage = new Stage();
-                // homeStage.setScene(new Scene(root, 600, 400));
-                // homeStage.show();
-                
-                // MainApplication.setRoot("home.fxml");
             }catch (IOException e) {
                 e.printStackTrace();
                 e.getCause();
