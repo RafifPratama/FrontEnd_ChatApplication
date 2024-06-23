@@ -40,6 +40,9 @@ public class HomeController {
     @FXML
     private Button btnChat;
 
+    @FXML
+    private Button btnKick;
+
     public void init() {
         ArrayList<Room> alRoom = client.listAllRooms();
     
@@ -48,7 +51,8 @@ public class HomeController {
         }
         contactList.setOnMouseClicked(event -> handleChatClick(event, client, alRoom));
 
-        chatList.setOnMouseClicked(event -> handleKickMember(event,client));
+        btnKick.setVisible(false);
+        btnKick.setOnMouseClicked(event -> handleKickMember(event,client));
 
         // Add event handlers for buttons
         btnAdd.setOnMouseClicked(event -> handleAddContact(event));
@@ -86,11 +90,16 @@ public class HomeController {
             int selectedIdx = contactList.getSelectionModel().getSelectedIndex();
             this.selectedRoom = alRoom.get(selectedIdx);
             this.alUserPerRoom = client.listAllMembersInTheRoom(alRoom.get(selectedIdx).getId());
-            // btnChat.setOnMouseClicked(event -> handleChat(event));
             for (int i = 0; i < alUserPerRoom.size(); i++) {
                 chatList.getItems().add(alUserPerRoom.get(i).getName());
                 Integer roomId = alRoom.get(selectedIdx).getId();
                 swapChatJoin(this.client.isMemberInside(roomId));
+            }
+            if(this.client.getClientId() == this.selectedRoom.getOwner_id()){
+                btnKick.setVisible(true);
+            }
+            else{
+                btnKick.setVisible(false);
             }
         }
     }

@@ -5,12 +5,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ui_chat_application.HomeController">
     <left>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <ListView fx:id="contactList" layoutX="10.0" prefHeight="400.0" prefWidth="180.0" />
+                <Text layoutX="10.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chat Room">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Text>
+                <ListView fx:id="contactList" layoutX="10.0" layoutY="40.0" prefHeight="360.0" prefWidth="180.0" />
             </children>
         </AnchorPane>
     </left>
@@ -21,6 +28,7 @@
                     <children>
                         <Button fx:id="btnAdd" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" text="+" />
                         <Button fx:id="btnLogout" layoutX="315.0" layoutY="13.0" mnemonicParsing="false" text="Log out" />
+                        <Button fx:id="btnKick" layoutX="100.0" layoutY="13.0" mnemonicParsing="false" text="Kick" />
                     </children>
                 </AnchorPane>
             </top>
@@ -29,6 +37,11 @@
                     <children>
                         <VBox layoutX="6.0" layoutY="6.0" prefHeight="298.0" prefWidth="387.0">
                             <children>
+                                <Text layoutX="187.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Member">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Text>
                                 <ListView fx:id="chatList" prefHeight="295.0" prefWidth="156.0" />
                             </children>
                         </VBox>
