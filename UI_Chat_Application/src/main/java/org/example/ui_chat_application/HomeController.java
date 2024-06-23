@@ -146,7 +146,7 @@ public class HomeController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("chat_room.fxml"));
             root = loader.load();
             ChatRoomController chatRoomController = loader.getController();
-            chatRoomController.setClient(client);
+            chatRoomController.setClientAndRoom(client, this.selectedRoom);
     
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);

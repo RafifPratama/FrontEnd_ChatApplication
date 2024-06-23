@@ -22,9 +22,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 import org.example.client.IClient;
+import org.example.model.Room;
 
 public class ChatRoomController {
     IClient client;
+    Room room;
     private Parent root;
     private Stage stage;
 	private Scene scene;
@@ -42,8 +44,9 @@ public class ChatRoomController {
 
     }
 
-    public void setClient(IClient client){
+    public void setClientAndRoom(IClient client, Room room){
         this.client = client;
+        this.room = room;
     }
 
     public void backButtonOnClick(ActionEvent event) {
@@ -65,6 +68,7 @@ public class ChatRoomController {
 
     public void sendButtonOnClick(ActionEvent event) {
         if (tfChat.getText().isBlank() == false) {
+            this.client.sendMessage(tfChat.getText(), this.room.getName());
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER_RIGHT);
             hBox.setPadding(new Insets(5, 5, 5, 10));
