@@ -44,6 +44,7 @@ public class HomeController {
     private Button btnKick;
 
     public void init() {
+        System.out.println("lol");
         ArrayList<Room> alRoom = client.listAllRooms();
     
         for (int i = 0; i < alRoom.size(); i++) {

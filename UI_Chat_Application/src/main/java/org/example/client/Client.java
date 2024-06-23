@@ -248,16 +248,15 @@ public class Client implements IClient {
             response = readInputFromServer.readLine();
         } catch (Exception e) {
             e.printStackTrace();
+            return null; // return null if there is an error reading response
         }
 
-        @SuppressWarnings("unchecked")
-        Response<ArrayList<Room>> res = gson.fromJson(response, Response.class);
+        // Use TypeToken to correctly deserialize the response
+        Type responseType = new TypeToken<Response<ArrayList<Room>>>() {}.getType();
+        Response<ArrayList<Room>> res = gson.fromJson(response, responseType);
 
-        TypeToken<ArrayList<Room>> typeToken = new TypeToken<ArrayList<Room>>(){};
-
-        ArrayList<Room> alRoom = gson.fromJson(res.getData().toString(), typeToken);
-
-        return alRoom;
+        // Return the list of rooms
+        return res.getData();
     }
 
     @Override

@@ -50,11 +50,15 @@ public class LoginController {
                 HomeController homeController = loader.getController();
                 homeController.setClient(client);
                 homeController.init();
-
+                
                 stage = (Stage)((Node)event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
+
                 stage.setScene(scene);
+                
+
                 stage.show();
+                
             }catch (IOException e) {
                 e.printStackTrace();
                 e.getCause();
