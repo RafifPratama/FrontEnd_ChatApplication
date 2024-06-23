@@ -49,7 +49,7 @@ public class HomeController {
 
         // Add event handlers for buttons
         btnAdd.setOnMouseClicked(event -> handleAddContact(event));
-        btnLogout.setOnAction(event -> handleLogout());
+        btnLogout.setOnMouseClicked(event -> handleLogout(event));
         btnChat.setOnAction(event -> handleChat());
     }
 
@@ -90,10 +90,20 @@ public class HomeController {
         }
     }
 
-    private void handleLogout() {
+    private void handleLogout(MouseEvent event) {
         // Placeholder for logout logic (you can replace this with actual logic)
         try {
-            MainApplication.setRoot("login.fxml");
+            // MainApplication.setRoot("login.fxml");
+            this.client.logout();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            root = loader.load();
+            // NewRoomChatController newRoomChatController = loader.getController();
+            // newRoomChatController.setClient(client);
+
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         }catch (IOException e) {
             e.printStackTrace();
             e.getCause();
