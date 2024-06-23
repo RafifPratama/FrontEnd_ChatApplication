@@ -20,6 +20,7 @@ import org.example.model.*;
 public class HomeController {
     IClient client;
     Room selectedRoom;
+    ArrayList<User> alUserPerRoom;
     private Parent root;
     private Stage stage;
 	private Scene scene;
@@ -46,6 +47,8 @@ public class HomeController {
             contactList.getItems().add(alRoom.get(i).getName());
         }
         contactList.setOnMouseClicked(event -> handleChatClick(event, client, alRoom));
+
+        chatList.setOnMouseClicked(event -> handleKickMember(event,client));
 
         // Add event handlers for buttons
         btnAdd.setOnMouseClicked(event -> handleAddContact(event));
@@ -82,13 +85,41 @@ public class HomeController {
             chatList.getItems().clear();
             int selectedIdx = contactList.getSelectionModel().getSelectedIndex();
             this.selectedRoom = alRoom.get(selectedIdx);
-            ArrayList<User> alUserPerRoom = client.listAllMembersInTheRoom(alRoom.get(selectedIdx).getId());
+            this.alUserPerRoom = client.listAllMembersInTheRoom(alRoom.get(selectedIdx).getId());
             // btnChat.setOnMouseClicked(event -> handleChat(event));
             for (int i = 0; i < alUserPerRoom.size(); i++) {
                 chatList.getItems().add(alUserPerRoom.get(i).getName());
                 Integer roomId = alRoom.get(selectedIdx).getId();
                 swapChatJoin(this.client.isMemberInside(roomId));
             }
+        }
+    }
+
+    private void handleKickMember(MouseEvent event, IClient client){
+        if(client.isOwnerOfTheRoom(this.client.getClientId(), this.selectedRoom.getId())){
+            int selectedMemberIdx = chatList.getSelectionModel().getSelectedIndex();
+            User toBeKickedUser = this.alUserPerRoom.get(selectedMemberIdx);
+            if(toBeKickedUser.getId() == this.client.getClientId()){
+                return;
+            }
+            try{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("kick_confirm.fxml"));
+                root = loader.load();
+                KickConfirmController kickConfirmController = loader.getController();
+                kickConfirmController.setClient(client);
+                kickConfirmController.init(toBeKickedUser,this.selectedRoom);
+    
+                stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            System.out.println("no kamu bukannn");
         }
     }
 

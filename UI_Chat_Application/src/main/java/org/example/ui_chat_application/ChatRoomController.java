@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -53,7 +54,7 @@ public class ChatRoomController {
                 loadMyChat(alChatPerRoom.get(i).getChats());
             }
             else{
-                loadOtherUserChat(alChatPerRoom.get(i).getChats());
+                loadOtherUserChat(alChatPerRoom.get(i).getChats(), alChatPerRoom.get(i).getSender_name());
             }
         }
     }
@@ -98,6 +99,7 @@ public class ChatRoomController {
 
             hBox.getChildren().add(textFlow);
             vboxMassage.getChildren().add(hBox);
+            tfChat.clear();
         }else {
             System.out.println();
         }
@@ -121,7 +123,14 @@ public class ChatRoomController {
         vboxMassage.getChildren().add(hBox);
     }
 
-    public void loadOtherUserChat(String textMassage) {
+    public void loadOtherUserChat(String textMassage, String sender_name) {
+        VBox vBox = new VBox();
+        Text senderText = new Text(sender_name);
+        TextFlow senderTextFlow = new TextFlow(senderText);
+        senderText.setFill(Color.color(0.1, 0.1, 0.1));
+        senderTextFlow.setPadding(new Insets(5,10,0,10));
+        senderText.setFont(Font.font(11));
+        vBox.getChildren().add(senderTextFlow);
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.setPadding(new Insets(5, 5, 5, 10));
@@ -136,6 +145,7 @@ public class ChatRoomController {
         text.setFill(Color.color(0, 0, 0));
 
         hBox.getChildren().add(textFlow);
-        vboxMassage.getChildren().add(hBox);
+        vBox.getChildren().add(hBox);
+        vboxMassage.getChildren().add(vBox);
     }
 }
