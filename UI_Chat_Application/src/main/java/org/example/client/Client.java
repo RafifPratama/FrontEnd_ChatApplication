@@ -363,4 +363,24 @@ public class Client implements IClient {
     public Integer getClientId() {
         return this.user.getId();
     }
+
+    @Override
+    public boolean isOwnerOfTheRoom(Integer userId, Integer roomId) {
+        Room room = new Room(roomId, userId);
+        Request<String> req = new Request<>("isOwnerOfTheRoom", gson.toJson(room)); 
+        writer.println(gson.toJson(req));
+
+        String response = "";
+
+        try{
+            response = readInputFromServer.readLine();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        @SuppressWarnings("unchecked")
+        Response<Boolean> res = gson.fromJson(response, Response.class);
+        
+        return res.getData();
+    }
 }

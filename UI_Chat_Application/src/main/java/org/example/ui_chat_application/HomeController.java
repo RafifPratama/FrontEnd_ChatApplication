@@ -47,6 +47,8 @@ public class HomeController {
         }
         contactList.setOnMouseClicked(event -> handleChatClick(event, client, alRoom));
 
+        chatList.setOnMouseClicked(event -> handleKickMember(event,client));
+
         // Add event handlers for buttons
         btnAdd.setOnMouseClicked(event -> handleAddContact(event));
         btnLogout.setOnMouseClicked(event -> handleLogout(event));
@@ -89,6 +91,29 @@ public class HomeController {
                 Integer roomId = alRoom.get(selectedIdx).getId();
                 swapChatJoin(this.client.isMemberInside(roomId));
             }
+        }
+    }
+
+    private void handleKickMember(MouseEvent event, IClient client){
+        if(client.isOwnerOfTheRoom(this.client.getClientId(), this.selectedRoom.getId())){
+            try{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("kick_confirm.fxml"));
+                root = loader.load();
+                KickConfirmController kickConfirmController = loader.getController();
+                kickConfirmController.setClient(client);
+                kickConfirmController.init(null,null);
+    
+                stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            System.out.println("no kamu bukannn");
         }
     }
 
