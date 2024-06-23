@@ -52,6 +52,7 @@ public class NewRoomChatController  {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("home.fxml"));
                 root = loader.load();
                 HomeController homeController = loader.getController();
+                homeController.setClient(client);
                 homeController.init();
 
                 stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -69,7 +70,16 @@ public class NewRoomChatController  {
 
     private void handleBackButton(ActionEvent event) {
         try {
-            MainApplication.setRoot("home.fxml");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("home.fxml"));
+            root = loader.load();
+            HomeController homeController = loader.getController();
+            homeController.setClient(client);
+            homeController.init();
+
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         }catch (IOException e) {
             e.printStackTrace();
             e.getCause();

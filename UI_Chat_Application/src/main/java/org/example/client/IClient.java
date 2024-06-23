@@ -13,6 +13,8 @@ public interface IClient {
     ArrayList<Room> listAllRooms();
     ArrayList<User> listAllMembersInTheRoom(Integer roomId);
     void addMember(String memberName, String roomName);
+    boolean joinRoom(String roomName);
+    boolean isMemberInside(Integer roomId);
     void logout();
     void exit();
 }
