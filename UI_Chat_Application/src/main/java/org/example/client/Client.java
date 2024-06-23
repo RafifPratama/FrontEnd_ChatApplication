@@ -327,4 +327,40 @@ public class Client implements IClient {
 
         return res.getData();
     }
+
+    @Override
+    public ArrayList<Chat> listAllChatsInTheRoom(Integer roomId) {
+        Request<Integer> req = new Request<>("listAllChatsInTheRoom", roomId);
+        writer.println(gson.toJson(req));
+        
+        String response = "";
+
+        try{
+            response = readInputFromServer.readLine();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        @SuppressWarnings("unchecked")
+        // Response<ArrayList<Chat>> res = gson.fromJson(response, Response.class);
+
+        // ArrayList<Chat> alChatsInTheRoom = gson.fromJson(res.getData().toString(), typeToken);
+        Response<String> res = gson.fromJson(response, Response.class);
+
+        TypeToken<ArrayList<Chat>> typeToken = new TypeToken<ArrayList<Chat>>(){};
+
+        ArrayList<Chat> alChatsInTheRoom = gson.fromJson(res.getData(), typeToken);
+
+        return alChatsInTheRoom;
+    }
+
+    @Override
+    public String getClientName() {
+        return this.user.getName();
+    }
+
+    @Override
+    public Integer getClientId() {
+        return this.user.getId();
+    }
 }

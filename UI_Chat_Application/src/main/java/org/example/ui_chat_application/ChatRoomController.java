@@ -16,12 +16,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.example.client.IClient;
+import org.example.model.Chat;
 import org.example.model.Room;
 
 public class ChatRoomController {
@@ -39,9 +42,20 @@ public class ChatRoomController {
     private Button backButton;
     @FXML
     private VBox vboxMassage;
+    @FXML
+    private Label chatRoomName;
 
     public void init() {
-
+        chatRoomName.setText(room.getName());
+        ArrayList<Chat> alChatPerRoom = this.client.listAllChatsInTheRoom(this.room.getId());
+        for (int i = 0; i < alChatPerRoom.size(); i++) {
+            if(alChatPerRoom.get(i).getSenderId().equals(client.getClientId())){
+                loadMyChat(alChatPerRoom.get(i).getChats());
+            }
+            else{
+                loadOtherUserChat(alChatPerRoom.get(i).getChats());
+            }
+        }
     }
 
     public void setClientAndRoom(IClient client, Room room){
@@ -76,9 +90,9 @@ public class ChatRoomController {
             Text text = new Text(tfChat.getText());
             TextFlow textFlow = new TextFlow(text);
 
-            textFlow.setStyle("-fx-color: rgb(255,255,255)" +
-                    "-fx-background-color: (15,152,242)" +
-                    "-fx-background-radius: 20px");
+            textFlow.setStyle("-fx-color: rgb(255,255,255);" +
+                    "-fx-background-color: rgb(15,152,242);" +
+                    "-fx-background-radius: 20px;");
             textFlow.setPadding(new Insets(5, 10, 5, 10));
             text.setFill(Color.color(0.934, 0.945, 0.996));
 
@@ -89,7 +103,25 @@ public class ChatRoomController {
         }
     }
 
-    public void addChatBubble(String textMassage) {
+    public void loadMyChat(String message){
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER_RIGHT);
+        hBox.setPadding(new Insets(5, 5, 5, 10));
+
+        Text text = new Text(message);
+        TextFlow textFlow = new TextFlow(text);
+
+        textFlow.setStyle("-fx-color: rgb(255,255,255);" +
+                "-fx-background-color: rgb(15,152,242);" +
+                "-fx-background-radius: 20px;");
+        textFlow.setPadding(new Insets(5, 10, 5, 10));
+        text.setFill(Color.color(0.934, 0.945, 0.996));
+
+        hBox.getChildren().add(textFlow);
+        vboxMassage.getChildren().add(hBox);
+    }
+
+    public void loadOtherUserChat(String textMassage) {
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.setPadding(new Insets(5, 5, 5, 10));
@@ -98,10 +130,10 @@ public class ChatRoomController {
         TextFlow textFlow = new TextFlow(text);
 
         textFlow.setStyle(
-                "-fx-background-color: (233,233,235)" +
-                "-fx-background-radius: 20px");
+                "-fx-background-color: rgb(233,233,235);" +
+                "-fx-background-radius: 20px;");
         textFlow.setPadding(new Insets(5, 10, 5, 10));
-        text.setFill(Color.color(0.934, 0.945, 0.996));
+        text.setFill(Color.color(0, 0, 0));
 
         hBox.getChildren().add(textFlow);
         vboxMassage.getChildren().add(hBox);
