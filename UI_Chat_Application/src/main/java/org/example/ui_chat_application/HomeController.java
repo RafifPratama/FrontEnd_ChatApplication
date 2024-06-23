@@ -136,6 +136,7 @@ public class HomeController {
             for (int i = 0; i < alUserPerRoom.size(); i++) {
                 chatList.getItems().add(alUserPerRoom.get(i).getName());
             }
+            swapChatJoin(this.client.isMemberInside(selectedRoom.getId()));
         } catch(Exception e){
             e.printStackTrace();
         }
@@ -146,7 +147,8 @@ public class HomeController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("chat_room.fxml"));
             root = loader.load();
             ChatRoomController chatRoomController = loader.getController();
-            chatRoomController.setClient(client);
+            chatRoomController.setClientAndRoom(client, this.selectedRoom);
+            chatRoomController.init();
     
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
