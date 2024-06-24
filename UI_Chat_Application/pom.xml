@@ -53,6 +53,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.11.0</version>
 				<configuration>
+					<!-- Ubah versi source dan target sesuai dengan java version yang ada pada machine anda -->
 					<source>20</source>
 					<target>20</target>
 				</configuration>
