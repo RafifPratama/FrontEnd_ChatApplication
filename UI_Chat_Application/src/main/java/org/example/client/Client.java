@@ -251,11 +251,18 @@ public class Client implements IClient {
         }
 
         @SuppressWarnings("unchecked")
-        Response<ArrayList<Room>> res = gson.fromJson(response, Response.class);
+        Response<String> res = gson.fromJson(response, Response.class);
 
         TypeToken<ArrayList<Room>> typeToken = new TypeToken<ArrayList<Room>>(){};
 
-        ArrayList<Room> alRoom = gson.fromJson(res.getData().toString(), typeToken);
+        ArrayList<Room> alRoom = gson.fromJson(res.getData(), typeToken);
+
+        // for (int i = 0; i < alRoom.size(); i++) {
+        //     System.out.println("id room : " + alRoom.get(i).getId());
+        //     System.out.println("nama room : " + alRoom.get(i).getName());
+        //     System.out.println("owner id : " + alRoom.get(i).getOwner_id());
+        //     System.out.println("nama owner : " + alRoom.get(i).getOwner());
+        // }
 
         return alRoom;
     }
@@ -275,11 +282,11 @@ public class Client implements IClient {
         }
 
         @SuppressWarnings("unchecked")
-        Response<ArrayList<User>> res = gson.fromJson(response, Response.class);
+        Response<String> res = gson.fromJson(response, Response.class);
 
         TypeToken<ArrayList<User>> typeToken = new TypeToken<ArrayList<User>>(){};
 
-        ArrayList<User> alMembersInTheRoom = gson.fromJson(res.getData().toString(), typeToken);
+        ArrayList<User> alMembersInTheRoom = gson.fromJson(res.getData(), typeToken);
         return alMembersInTheRoom;
     }
 
